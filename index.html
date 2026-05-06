@@ -1,498 +1,167 @@
-import React, { useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  BriefcaseBusiness,
-  Building2,
-  Calculator,
-  CheckCircle2,
-  FileText,
-  Globe2,
-  Languages,
-  MapPin,
-  ShieldCheck,
-  Users
-} from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-
-const countryOptions = ["france", "ireland"];
-const languageOptions = ["en", "fr"];
-
-const countries = {
-  france: { label: "France", city: "Paris", flag: "🇫🇷" },
-  ireland: { label: "Ireland", city: "Dublin", flag: "🇮🇪" }
-};
-
-const content = {
-  en: {
-    nav: [
-      { label: "Services", href: "#services" },
-      { label: "Packages", href: "#packages" },
-      { label: "BPO", href: "#bpo" },
-      { label: "Offices", href: "#offices" },
-      { label: "Contact", href: "#contact" }
-    ],
-    heroBadge: "Paris & Dublin Accounting Firm",
-    heroTitle: "Accounting, tax and business support for French, Irish and international clients.",
-    heroText:
-      "One firm with two European offices, local accounting packages for France and Ireland, and offshore BPO support for UK and Canadian businesses.",
-    ctaPrimary: "Book a consultation",
-    ctaSecondary: "View packages",
-    countryLabel: "Choose your office",
-    languageLabel: "Language",
-    selectedOffice: "Selected office",
-    servicesTitle: "What we help with",
-    packagesTitle: "Country-specific accounting packages",
-    packagesIntro: "packages shown. Switch office to see the other country.",
-    bpoTitle: "BPO services for UK & Canadian clients",
-    bpoText:
-      "A separate service line for overseas clients that need reliable outsourced finance operations without opening a local office.",
-    officesTitle: "Two offices, one cross-border team",
-    contactTitle: "Tell us where your business is based",
-    contactText: "We will route your enquiry to the right office and package.",
-    contactButton: "Start enquiry",
-    namePlaceholder: "Name",
-    emailPlaceholder: "Email",
-    accountingOption: "Accounting services",
-    bpoOption: "BPO services: UK / Canada",
-    choosePackage: "Choose package",
-    officeIntro: {
-      france:
-        "French-language and English-language accounting support for companies, freelancers and international founders operating in France.",
-      ireland:
-        "Irish accounting, tax compliance and business support for companies, contractors and international clients operating in Ireland."
-    },
-    services: [
-      ["Company accounting", "Bookkeeping, annual accounts, reporting and compliance."],
-      ["Tax & VAT", "VAT returns, tax filings, cross-border tax coordination and deadlines."],
-      ["Payroll support", "Monthly payroll coordination for local teams and contractors."],
-      ["Founder support", "Guidance for international entrepreneurs setting up in France or Ireland."]
-    ],
-    bpo: [
-      "Remote bookkeeping and reconciliations",
-      "Accounts payable and receivable support",
-      "Management reporting packs",
-      "Back-office finance admin for UK and Canadian SMEs"
-    ],
-    packages: {
-      france: [
-        [
-          "France Starter",
-          "For micro-businesses, freelancers and new SAS/SASU companies",
-          "From €199/mo",
-          ["Monthly bookkeeping", "VAT support", "Annual accounts coordination"]
-        ],
-        [
-          "France Growth",
-          "For growing French companies with regular transactions",
-          "From €399/mo",
-          ["Bookkeeping", "VAT & tax calendar", "Payroll coordination", "Quarterly management report"]
-        ],
-        [
-          "France Premium",
-          "For international founders and cross-border structures",
-          "Custom",
-          ["Dedicated advisor", "Multi-country coordination", "Cash-flow reporting", "Board-ready reporting"]
-        ]
-      ],
-      ireland: [
-        [
-          "Ireland Starter",
-          "For Irish limited companies and contractors",
-          "From €175/mo",
-          ["Bookkeeping", "VAT/RTD reminders", "Annual accounts support"]
-        ],
-        [
-          "Ireland Growth",
-          "For SMEs with payroll and monthly reporting needs",
-          "From €350/mo",
-          ["Monthly accounts", "Payroll coordination", "Corporation tax support", "Management reports"]
-        ],
-        [
-          "Ireland Premium",
-          "For Irish companies with UK/EU activity",
-          "Custom",
-          ["Dedicated accountant", "Cross-border support", "Cash-flow reports", "Director advisory"]
-        ]
-      ]
-    },
-    offices: {
-      france: "Paris office — serving French clients and international businesses in France.",
-      ireland: "Dublin office — serving Irish clients and companies trading internationally."
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stratancy</title>
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#f8fafc;
+      color:#111827;
     }
+    header{
+      background:#111827;
+      color:white;
+      padding:20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    select{
+      padding:10px;
+      border-radius:8px;
+      border:none;
+    }
+    .hero{
+      padding:80px 20px;
+      text-align:center;
+    }
+    .hero h1{
+      font-size:48px;
+      margin-bottom:20px;
+    }
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:20px;
+      padding:40px 20px;
+    }
+    .card{
+      background:white;
+      padding:24px;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    }
+    .dark{
+      background:#111827;
+      color:white;
+      padding:60px 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <strong>Stratancy</strong><br>
+    Paris · Dublin · BPO
+  </div>
+
+  <div>
+    <select id="country">
+      <option value="france">🇫🇷 France</option>
+      <option value="ireland">🇮🇪 Ireland</option>
+    </select>
+
+    <select id="lang">
+      <option value="en">EN</option>
+      <option value="fr">FR</option>
+    </select>
+  </div>
+</header>
+
+<section class="hero">
+  <h1 id="title"></h1>
+  <p id="subtitle"></p>
+</section>
+
+<section class="cards" id="packages"></section>
+
+<section class="dark">
+  <h2 id="bpoTitle"></h2>
+  <p id="bpoText"></p>
+</section>
+
+<script>
+const data = {
+  en: {
+    title: "Accounting & BPO Services",
+    subtitle: "Paris and Dublin accounting firm for French, Irish, UK and Canadian clients.",
+    bpoTitle: "BPO Services",
+    bpoText: "Finance and accounting outsourcing for UK and Canadian companies.",
+    france: [
+      ["France Starter","€199/mo"],
+      ["France Growth","€399/mo"],
+      ["France Premium","Custom"]
+    ],
+    ireland: [
+      ["Ireland Starter","€175/mo"],
+      ["Ireland Growth","€350/mo"],
+      ["Ireland Premium","Custom"]
+    ]
   },
   fr: {
-    nav: [
-      { label: "Services", href: "#services" },
-      { label: "Offres", href: "#packages" },
-      { label: "BPO", href: "#bpo" },
-      { label: "Bureaux", href: "#offices" },
-      { label: "Contact", href: "#contact" }
+    title: "Services Comptables & BPO",
+    subtitle: "Cabinet comptable à Paris et Dublin pour clients français, irlandais, britanniques et canadiens.",
+    bpoTitle: "Services BPO",
+    bpoText: "Externalisation comptable pour entreprises britanniques et canadiennes.",
+    france: [
+      ["France Starter","199€/mois"],
+      ["France Growth","399€/mois"],
+      ["France Premium","Sur devis"]
     ],
-    heroBadge: "Cabinet comptable à Paris & Dublin",
-    heroTitle: "Comptabilité, fiscalité et accompagnement pour clients français, irlandais et internationaux.",
-    heroText:
-      "Un cabinet avec deux bureaux européens, des offres adaptées à la France et à l’Irlande, et des services BPO pour les entreprises britanniques et canadiennes.",
-    ctaPrimary: "Prendre rendez-vous",
-    ctaSecondary: "Voir les offres",
-    countryLabel: "Choisir votre bureau",
-    languageLabel: "Langue",
-    selectedOffice: "Bureau sélectionné",
-    servicesTitle: "Nos services",
-    packagesTitle: "Offres comptables par pays",
-    packagesIntro: "affichées. Changez de bureau pour voir l’autre pays.",
-    bpoTitle: "Services BPO pour clients UK & Canada",
-    bpoText:
-      "Une ligne de services distincte pour les clients étrangers qui ont besoin d’opérations financières externalisées fiables sans ouvrir de bureau local.",
-    officesTitle: "Deux bureaux, une équipe internationale",
-    contactTitle: "Dites-nous où votre entreprise est basée",
-    contactText: "Nous orienterons votre demande vers le bon bureau et la bonne offre.",
-    contactButton: "Envoyer une demande",
-    namePlaceholder: "Nom",
-    emailPlaceholder: "Email",
-    accountingOption: "Services comptables",
-    bpoOption: "Services BPO : UK / Canada",
-    choosePackage: "Choisir cette offre",
-    officeIntro: {
-      france:
-        "Accompagnement comptable en français et en anglais pour sociétés, indépendants et entrepreneurs internationaux en France.",
-      ireland:
-        "Comptabilité, fiscalité et support business pour sociétés, contractors et clients internationaux opérant en Irlande."
-    },
-    services: [
-      ["Comptabilité d’entreprise", "Tenue comptable, comptes annuels, reporting et conformité."],
-      ["Fiscalité & TVA", "Déclarations de TVA, échéances fiscales et coordination transfrontalière."],
-      ["Support paie", "Coordination mensuelle de la paie pour équipes locales et contractors."],
-      ["Accompagnement fondateur", "Conseil pour entrepreneurs internationaux en France ou en Irlande."]
-    ],
-    bpo: [
-      "Bookkeeping et rapprochements à distance",
-      "Support comptes fournisseurs et clients",
-      "Reporting de gestion mensuel",
-      "Back-office finance pour PME UK et canadiennes"
-    ],
-    packages: {
-      france: [
-        [
-          "France Starter",
-          "Pour micro-entreprises, freelances et nouvelles SAS/SASU",
-          "À partir de 199 €/mois",
-          ["Tenue comptable mensuelle", "Support TVA", "Coordination comptes annuels"]
-        ],
-        [
-          "France Growth",
-          "Pour sociétés françaises en croissance",
-          "À partir de 399 €/mois",
-          ["Comptabilité", "Calendrier TVA & fiscal", "Coordination paie", "Reporting trimestriel"]
-        ],
-        [
-          "France Premium",
-          "Pour fondateurs internationaux et structures transfrontalières",
-          "Sur devis",
-          ["Conseiller dédié", "Coordination multi-pays", "Prévision de trésorerie", "Reporting dirigeant"]
-        ]
-      ],
-      ireland: [
-        [
-          "Ireland Starter",
-          "Pour sociétés irlandaises et contractors",
-          "À partir de 175 €/mois",
-          ["Bookkeeping", "Rappels TVA/RTD", "Support comptes annuels"]
-        ],
-        [
-          "Ireland Growth",
-          "Pour PME avec paie et reporting mensuel",
-          "À partir de 350 €/mois",
-          ["Comptes mensuels", "Coordination paie", "Support corporation tax", "Reporting de gestion"]
-        ],
-        [
-          "Ireland Premium",
-          "Pour sociétés irlandaises avec activité UK/EU",
-          "Sur devis",
-          ["Comptable dédié", "Support transfrontalier", "Reporting trésorerie", "Conseil dirigeant"]
-        ]
-      ]
-    },
-    offices: {
-      france: "Bureau de Paris — pour clients français et entreprises internationales en France.",
-      ireland: "Bureau de Dublin — pour clients irlandais et sociétés actives à l’international."
-    }
+    ireland: [
+      ["Ireland Starter","175€/mois"],
+      ["Ireland Growth","350€/mois"],
+      ["Ireland Premium","Sur devis"]
+    ]
   }
 };
 
-function isCountry(value) {
-  return countryOptions.includes(value);
-}
+let lang = "en";
+let country = "france";
 
-function isLanguage(value) {
-  return languageOptions.includes(value);
-}
+function render(){
+  const t = data[lang];
 
-export default function AccountingWebsiteConcept() {
-  const [country, setCountry] = useState("france");
-  const [lang, setLang] = useState("en");
-  const [serviceType, setServiceType] = useState("accounting");
+  document.getElementById("title").innerText = t.title;
+  document.getElementById("subtitle").innerText = t.subtitle;
+  document.getElementById("bpoTitle").innerText = t.bpoTitle;
+  document.getElementById("bpoText").innerText = t.bpoText;
 
-  const t = content[lang];
-  const activeCountry = countries[country];
-  const packages = useMemo(() => t.packages[country], [country, t]);
+  const packages = document.getElementById("packages");
 
-  function selectCountry(nextCountry) {
-    if (!isCountry(nextCountry)) return;
-
-    setCountry(nextCountry);
-    setLang(nextCountry === "france" ? "fr" : "en");
-  }
-
-  function selectLanguage(nextLanguage) {
-    if (!isLanguage(nextLanguage)) return;
-
-    setLang(nextLanguage);
-  }
-
-  return (
-    <div className="min-h-screen bg-slate-50 text-slate-950">
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-sm">
-              <Calculator size={22} aria-hidden="true" />
-            </div>
-            <div>
-              <div className="text-lg font-semibold tracking-tight">Your Firm Name</div>
-              <div className="text-xs text-slate-500">Paris · Dublin · BPO</div>
-            </div>
-          </div>
-
-          <nav className="hidden items-center gap-7 text-sm font-medium text-slate-600 lg:flex" aria-label="Main navigation">
-            {t.nav.map((item) => (
-              <a key={item.href} href={item.href} className="hover:text-slate-950">
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <select
-              value={country}
-              onChange={(event) => selectCountry(event.target.value)}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
-              aria-label={t.countryLabel}
-            >
-              <option value="france">🇫🇷 France</option>
-              <option value="ireland">🇮🇪 Ireland</option>
-            </select>
-            <select
-              value={lang}
-              onChange={(event) => selectLanguage(event.target.value)}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
-              aria-label={t.languageLabel}
-            >
-              <option value="en">EN</option>
-              <option value="fr">FR</option>
-            </select>
-          </div>
-        </div>
-      </header>
-
-      <main>
-        <section className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-20 lg:grid-cols-[1.1fr_0.9fr]">
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
-              <Globe2 size={16} aria-hidden="true" /> {t.heroBadge}
-            </div>
-            <h1 className="max-w-4xl text-5xl font-bold leading-tight tracking-tight md:text-6xl">{t.heroTitle}</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">{t.heroText}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild className="rounded-2xl px-6 py-6 text-base">
-                <a href="#contact">
-                  {t.ctaPrimary}
-                  <ArrowRight className="ml-2" size={18} aria-hidden="true" />
-                </a>
-              </Button>
-              <Button asChild variant="outline" className="rounded-2xl px-6 py-6 text-base">
-                <a href="#packages">{t.ctaSecondary}</a>
-              </Button>
-            </div>
-          </motion.div>
-
-          <Card className="rounded-[2rem] border-slate-200 shadow-xl">
-            <CardContent className="p-7">
-              <div className="mb-5 flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm text-slate-500">{t.selectedOffice}</p>
-                  <h2 className="text-3xl font-bold">
-                    {activeCountry.flag} {activeCountry.city}
-                  </h2>
-                </div>
-                <Building2 size={38} className="text-slate-400" aria-hidden="true" />
-              </div>
-              <p className="leading-7 text-slate-600">{t.officeIntro[country]}</p>
-              <div className="mt-6 grid gap-3">
-                <div className="rounded-2xl bg-slate-100 p-4">
-                  <div className="mb-2 flex items-center gap-2 font-semibold">
-                    <Languages size={18} aria-hidden="true" /> {t.languageLabel}
-                  </div>
-                  <div className="flex gap-2">
-                    <Button type="button" variant={lang === "en" ? "default" : "outline"} onClick={() => selectLanguage("en")} className="rounded-xl">
-                      English
-                    </Button>
-                    <Button type="button" variant={lang === "fr" ? "default" : "outline"} onClick={() => selectLanguage("fr")} className="rounded-xl">
-                      Français
-                    </Button>
-                  </div>
-                </div>
-                <div className="rounded-2xl bg-slate-100 p-4">
-                  <div className="mb-2 flex items-center gap-2 font-semibold">
-                    <MapPin size={18} aria-hidden="true" /> {t.countryLabel}
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {countryOptions.map((key) => (
-                      <Button
-                        key={key}
-                        type="button"
-                        variant={country === key ? "default" : "outline"}
-                        onClick={() => selectCountry(key)}
-                        className="rounded-xl"
-                      >
-                        {countries[key].flag} {countries[key].label}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section id="services" className="mx-auto max-w-7xl px-6 py-10">
-          <h2 className="text-3xl font-bold tracking-tight">{t.servicesTitle}</h2>
-          <div className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {t.services.map(([title, desc]) => (
-              <Card key={title} className="rounded-3xl border-slate-200 shadow-sm">
-                <CardContent className="p-6">
-                  <ShieldCheck className="mb-4 text-slate-500" aria-hidden="true" />
-                  <h3 className="font-semibold">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{desc}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        <section id="packages" className="mx-auto max-w-7xl px-6 py-14">
-          <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight">{t.packagesTitle}</h2>
-              <p className="mt-2 text-slate-600">
-                {activeCountry.flag} {activeCountry.label} {t.packagesIntro}
-              </p>
-            </div>
-            <div className="rounded-2xl bg-white p-2 shadow-sm">
-              <Button type="button" variant={country === "france" ? "default" : "ghost"} onClick={() => selectCountry("france")} className="rounded-xl">
-                France
-              </Button>
-              <Button type="button" variant={country === "ireland" ? "default" : "ghost"} onClick={() => selectCountry("ireland")} className="rounded-xl">
-                Ireland
-              </Button>
-            </div>
-          </div>
-          <div className="grid gap-5 md:grid-cols-3">
-            {packages.map(([name, desc, price, features]) => (
-              <Card key={name} className="rounded-[2rem] border-slate-200 bg-white shadow-sm">
-                <CardContent className="p-7">
-                  <h3 className="text-xl font-bold">{name}</h3>
-                  <p className="mt-2 min-h-14 text-sm leading-6 text-slate-600">{desc}</p>
-                  <div className="mt-5 text-2xl font-bold">{price}</div>
-                  <ul className="mt-6 space-y-3">
-                    {features.map((feature) => (
-                      <li key={feature} className="flex gap-2 text-sm text-slate-700">
-                        <CheckCircle2 size={18} className="shrink-0 text-slate-500" aria-hidden="true" /> {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button asChild variant="outline" className="mt-7 w-full rounded-2xl py-6">
-                    <a href="#contact">{t.choosePackage}</a>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        <section id="bpo" className="bg-slate-950 py-16 text-white">
-          <div className="mx-auto grid max-w-7xl gap-8 px-6 md:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-2 text-sm">UK · Canada · Remote finance operations</div>
-              <h2 className="text-4xl font-bold tracking-tight">{t.bpoTitle}</h2>
-              <p className="mt-5 leading-8 text-slate-300">{t.bpoText}</p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {t.bpo.map((item) => (
-                <div key={item} className="rounded-3xl bg-white/10 p-5">
-                  <BriefcaseBusiness className="mb-4 text-slate-300" aria-hidden="true" />
-                  <p className="font-medium leading-7">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="offices" className="mx-auto max-w-7xl px-6 py-16">
-          <h2 className="text-3xl font-bold tracking-tight">{t.officesTitle}</h2>
-          <div className="mt-7 grid gap-5 md:grid-cols-2">
-            {countryOptions.map((key) => (
-              <Card key={key} className="rounded-[2rem] border-slate-200 shadow-sm">
-                <CardContent className="p-7">
-                  <Users className="mb-4 text-slate-500" aria-hidden="true" />
-                  <h3 className="text-xl font-bold">
-                    {countries[key].flag} {countries[key].city}
-                  </h3>
-                  <p className="mt-3 leading-7 text-slate-600">{t.offices[key]}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        <section id="contact" className="mx-auto max-w-7xl px-6 pb-20">
-          <div className="rounded-[2rem] bg-white p-8 shadow-xl md:p-12">
-            <div className="grid gap-8 md:grid-cols-[1fr_0.8fr]">
-              <div>
-                <FileText className="mb-4 text-slate-500" aria-hidden="true" />
-                <h2 className="text-4xl font-bold tracking-tight">{t.contactTitle}</h2>
-                <p className="mt-4 max-w-2xl leading-8 text-slate-600">{t.contactText}</p>
-              </div>
-              <form className="grid gap-3" onSubmit={(event) => event.preventDefault()}>
-                <input className="rounded-2xl border border-slate-200 px-4 py-3" placeholder={t.namePlaceholder} name="name" />
-                <input className="rounded-2xl border border-slate-200 px-4 py-3" placeholder={t.emailPlaceholder} name="email" type="email" />
-                <select
-                  className="rounded-2xl border border-slate-200 px-4 py-3"
-                  value={country}
-                  onChange={(event) => selectCountry(event.target.value)}
-                  name="office"
-                >
-                  <option value="france">France / Paris</option>
-                  <option value="ireland">Ireland / Dublin</option>
-                </select>
-                <select
-                  className="rounded-2xl border border-slate-200 px-4 py-3"
-                  value={serviceType}
-                  onChange={(event) => setServiceType(event.target.value)}
-                  name="serviceType"
-                >
-                  <option value="accounting">{t.accountingOption}</option>
-                  <option value="bpo">{t.bpoOption}</option>
-                </select>
-                <Button type="submit" className="rounded-2xl py-6">
-                  {t.contactButton}
-                </Button>
-              </form>
-            </div>
-          </div>
-        </section>
-      </main>
+  packages.innerHTML = t[country].map(p => `
+    <div class="card">
+      <h3>${p[0]}</h3>
+      <p>${p[1]}</p>
     </div>
-  );
+  `).join("");
 }
+
+document.getElementById("country").addEventListener("change",(e)=>{
+  country = e.target.value;
+
+  if(country === "france"){
+    lang = "fr";
+  } else {
+    lang = "en";
+  }
+
+  document.getElementById("lang").value = lang;
+
+  render();
+});
+
+document.getElementById("lang").addEventListener("change",(e)=>{
+  lang = e.target.value;
+  render();
+});
+
+render();
+</script>
+
+</body>
+</html>
