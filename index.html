@@ -5,113 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stratancy | Accounting & BPO</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f8fafc;
-      color: #0f172a;
-    }
-
-    header {
-      background: #0f172a;
-      color: white;
-      padding: 24px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    select {
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      margin-left: 8px;
-    }
-
-    .hero {
-      padding: 90px 8%;
-      text-align: center;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-    }
-
-    .hero h1 {
-      font-size: 52px;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 20px;
-      max-width: 760px;
-      margin: auto;
-      color: #cbd5e1;
-    }
-
-    .section {
-      padding: 60px 8%;
-    }
-
-    .section h2 {
-      font-size: 36px;
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      background: white;
-      padding: 28px;
-      border-radius: 22px;
-      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
-      border: 1px solid #e2e8f0;
-    }
-
-    .card h3 {
-      font-size: 24px;
-      margin-top: 0;
-    }
-
-    .price {
-      font-size: 28px;
-      font-weight: bold;
-      margin: 20px 0;
-      color: #0f172a;
-    }
-
-    ul {
-      padding-left: 20px;
-      line-height: 1.8;
-    }
-
-    .address {
-      text-align: center;
-      font-weight: bold;
-      margin-top: 25px;
-      color: #475569;
-    }
-
-    .cta {
-      display: inline-block;
-      margin-top: 25px;
-      background: white;
-      color: #0f172a;
-      padding: 14px 24px;
-      border-radius: 12px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    footer {
-      background: #0f172a;
-      color: white;
-      text-align: center;
-      padding: 30px;
-    }
+    body{margin:0;font-family:Arial,sans-serif;background:#f8fafc;color:#0f172a}
+    header{background:#0f172a;color:white;padding:24px 8%;display:flex;justify-content:space-between;align-items:center}
+    select{padding:10px;border-radius:8px;border:none;margin-left:8px}
+    .hero{padding:90px 8%;text-align:center;background:linear-gradient(135deg,#0f172a,#1e293b);color:white}
+    .hero h1{font-size:52px;margin-bottom:20px}
+    .hero p{font-size:20px;max-width:760px;margin:auto;color:#cbd5e1}
+    .section{padding:60px 8%}
+    .section h2{font-size:36px;text-align:center;margin-bottom:35px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+    .card{background:white;padding:28px;border-radius:22px;box-shadow:0 12px 35px rgba(15,23,42,.08);border:1px solid #e2e8f0}
+    .card h3{font-size:24px;margin-top:0}
+    .price{font-size:28px;font-weight:bold;margin:20px 0;color:#0f172a}
+    ul{padding-left:20px;line-height:1.8}
+    .address{text-align:center;font-weight:bold;margin-top:25px;color:#475569}
+    .cta{display:inline-block;margin-top:25px;background:white;color:#0f172a;padding:14px 24px;border-radius:12px;font-weight:bold;text-decoration:none}
+    footer{background:#0f172a;color:white;text-align:center;padding:30px}
   </style>
 </head>
 
@@ -120,14 +29,15 @@
 <header>
   <div>
     <strong>Stratancy</strong><br />
-    <small>Paris · Dublin · BPO</small>
+    <small>Paris · Dublin · UK · Canada</small>
   </div>
 
   <div>
     <select id="mode">
       <option value="ireland">Ireland</option>
       <option value="france">France</option>
-      <option value="bpo">UK / Canada BPO</option>
+      <option value="uk">UK BPO</option>
+      <option value="canada">Canada BPO</option>
     </select>
 
     <select id="language">
@@ -141,7 +51,7 @@
   <h1 id="title"></h1>
   <p id="subtitle"></p>
   <br />
-  <a href="mailto:contact@stratancy.com" class="cta">Book a Consultation</a>
+  <a href="mailto:contact@stratancy.com" class="cta" id="cta"></a>
 </section>
 
 <section class="section">
@@ -155,90 +65,240 @@
   <div class="cards" id="pricing"></div>
 </section>
 
-<footer>
-  © 2026 Stratancy. Accounting, compliance and finance operations.
-</footer>
+<footer id="footer"></footer>
 
 <script>
 const data = {
-  ireland: {
-    title: "Irish Accounting & Company Formation",
-    subtitle: "CRO, Revenue, Corporation Tax, VAT and company formation support for Irish businesses and international founders.",
-    servicesTitle: "Ireland Services",
-    pricingTitle: "Ireland Pricing",
-    address: "31 Brooklawn Wood, Stradbrook Road, Blackrock, Dublin",
-    services: [
-      "Company Formation",
-      "CRO Annual Return B1",
-      "Revenue Registration",
-      "Corporation Tax",
-      "VAT Registration",
-      "RBO Filing"
-    ],
-    pricing: [
-      ["Formation Basic", "€249 once-off", ["Irish company incorporation", "CRO registration", "Company constitution", "Email support"]],
-      ["Compliance Plus", "€995/year", ["Annual Return B1", "Corporation Tax support", "Revenue registration", "Basic bookkeeping"]],
-      ["International Founder", "€2,450+", ["Non-resident setup", "Banking guidance", "Cross-border support", "Dedicated advisor"]]
-    ]
+  en: {
+    ireland: {
+      title: "Irish Accounting & Company Formation",
+      subtitle: "CRO, Revenue, Corporation Tax, VAT and monthly accounting support for Irish companies and international founders.",
+      servicesTitle: "Ireland Services",
+      pricingTitle: "Ireland Pricing",
+      address: "31 Brooklawn Wood, Stradbrook Road, Blackrock, Dublin",
+      cta: "Book a Consultation",
+      footer: "© 2026 Stratancy. Ireland accounting, company formation and compliance.",
+      services: [
+        "Irish Company Formation",
+        "CRO Annual Return B1",
+        "Revenue Registration",
+        "Corporation Tax",
+        "VAT Registration",
+        "RBO Filing",
+        "Monthly Bookkeeping",
+        "Payroll Support"
+      ],
+      pricing: [
+        ["Company Formation", "€495 once-off", ["Irish company incorporation", "CRO registration", "Company constitution", "RBO guidance", "All government registration fees included"]],
+        ["Formation + Compliance", "€1,250/year", ["Company formation", "Annual Return B1", "Revenue registration", "Corporation Tax support", "Compliance calendar"]],
+        ["Monthly Accounting", "From €249/month", ["Monthly bookkeeping", "VAT support", "Payroll coordination", "Management accounts", "Dedicated advisor"]],
+        ["International Founder", "€2,950+", ["Non-resident founder setup", "Banking guidance", "Cross-border support", "Revenue and CRO onboarding"]]
+      ]
+    },
+
+    france: {
+      title: "Expert-Comptable Paris",
+      subtitle: "French accounting, company formation, association creation and tax support for SASU, SAS, auto-entrepreneurs and international founders.",
+      servicesTitle: "France Services",
+      pricingTitle: "France Pricing",
+      address: "32 Rue Pradier, Paris 75019",
+      cta: "Book a Consultation",
+      footer: "© 2026 Stratancy. Expert-comptable services in Paris.",
+      services: [
+        "Création SASU / SAS",
+        "Création d’Association loi 1901",
+        "Auto-entrepreneur Support",
+        "TVA",
+        "URSSAF",
+        "DSN & Paie",
+        "Bilan Comptable",
+        "Liasse Fiscale"
+      ],
+      pricing: [
+        ["Auto-entrepreneur", "49€/month", ["Micro-entreprise setup guidance", "URSSAF support", "Turnover declaration help", "Basic tax guidance"]],
+        ["Création SASU / SAS", "From 390€", ["Company formation support", "Statuts preparation", "Guichet unique guidance", "SIREN/SIRET follow-up"]],
+        ["Création Association", "From 290€", ["Association loi 1901 setup", "Préfecture declaration guidance", "Statuts support", "Publication guidance"]],
+        ["SASU / SAS Accounting", "From 149€/month", ["Tenue comptable", "Déclarations TVA", "Bilan annuel", "Liasse fiscale"]],
+        ["Société Croissance", "From 299€/month", ["Comptabilité complète", "TVA & fiscalité", "Paie salariés", "Tableaux de bord"]]
+      ]
+    },
+
+    uk: {
+      title: "UK Finance & Accounting BPO",
+      subtitle: "Outsourced bookkeeping, payroll, VAT support and finance operations for UK limited companies and SMEs.",
+      servicesTitle: "UK BPO Services",
+      pricingTitle: "UK BPO Pricing",
+      address: "31 Brooklawn Wood, Stradbrook Road, Blackrock, Dublin",
+      cta: "Book a BPO Call",
+      footer: "© 2026 Stratancy. UK finance and accounting outsourcing.",
+      services: [
+        "Bookkeeping Outsourcing",
+        "VAT Return Support",
+        "PAYE Payroll Processing",
+        "Accounts Payable",
+        "Accounts Receivable",
+        "Management Accounts",
+        "Companies House Filing Support",
+        "HMRC Compliance Support"
+      ],
+      pricing: [
+        ["UK BPO Starter", "From £499/month", ["Monthly bookkeeping", "Bank reconciliations", "Invoice processing", "VAT support"]],
+        ["UK BPO Growth", "From £1,250/month", ["Dedicated finance associate", "PAYE payroll support", "AP/AR support", "Monthly management accounts"]],
+        ["UK Finance Team", "Custom pricing", ["Dedicated offshore team", "Custom workflows", "Weekly reporting", "CFO-level support"]]
+      ]
+    },
+
+    canada: {
+      title: "Canada Finance & Accounting BPO",
+      subtitle: "Outsourced bookkeeping, GST/HST support, payroll processing and finance operations for Canadian businesses.",
+      servicesTitle: "Canada BPO Services",
+      pricingTitle: "Canada BPO Pricing",
+      address: "31 Brooklawn Wood, Stradbrook Road, Blackrock, Dublin",
+      cta: "Book a BPO Call",
+      footer: "© 2026 Stratancy. Canada finance and accounting outsourcing.",
+      services: [
+        "Bookkeeping Outsourcing",
+        "GST/HST Support",
+        "Payroll Processing",
+        "Accounts Payable",
+        "Accounts Receivable",
+        "Monthly Reporting",
+        "CRA Compliance Support",
+        "Finance Operations"
+      ],
+      pricing: [
+        ["Canada BPO Starter", "From CAD $699/month", ["Monthly bookkeeping", "Bank reconciliations", "Invoice processing", "GST/HST support"]],
+        ["Canada BPO Growth", "From CAD $1,750/month", ["Dedicated finance associate", "Payroll support", "AP/AR support", "Monthly management reporting"]],
+        ["Canada Finance Team", "Custom pricing", ["Dedicated offshore team", "Custom workflows", "Weekly reporting", "Controller-level support"]]
+      ]
+    }
   },
 
-  france: {
-    title: "Expert-Comptable Paris",
-    subtitle: "Comptabilité française pour SASU, SAS, entrepreneurs, professions libérales et dirigeants internationaux.",
-    servicesTitle: "Services France",
-    pricingTitle: "Forfaits France",
-    address: "32 Rue Pradier, Paris 75019",
-    services: [
-      "Création SASU / SAS",
-      "TVA",
-      "URSSAF",
-      "DSN & Paie",
-      "Bilan Comptable",
-      "Liasse Fiscale"
-    ],
-    pricing: [
-      ["SASU Essentiel", "79€/mois", ["Tenue comptable", "Déclarations TVA", "Bilan annuel", "Support URSSAF"]],
-      ["Société Croissance", "249€/mois", ["Comptabilité complète", "TVA & fiscalité", "Paie salariés", "Tableaux de bord"]],
-      ["International France", "Sur devis", ["Support bilingue", "Conseiller dédié", "Gestion multi-pays", "Optimisation fiscale"]]
-    ]
-  },
+  fr: {
+    ireland: {
+      title: "Comptabilité Irlandaise & Création de Société",
+      subtitle: "Accompagnement CRO, Revenue, Corporation Tax, VAT et comptabilité mensuelle pour sociétés irlandaises et fondateurs internationaux.",
+      servicesTitle: "Services Irlande",
+      pricingTitle: "Tarifs Irlande",
+      address: "31 Brooklawn Wood, Stradbrook Road, Blackrock, Dublin",
+      cta: "Prendre rendez-vous",
+      footer: "© 2026 Stratancy. Comptabilité et conformité en Irlande.",
+      services: [
+        "Création de société irlandaise",
+        "Annual Return B1 auprès du CRO",
+        "Revenue Registration",
+        "Corporation Tax",
+        "VAT Registration",
+        "RBO Filing",
+        "Bookkeeping mensuel",
+        "Support paie"
+      ],
+      pricing: [
+        ["Création de société", "495€ paiement unique", ["Incorporation irlandaise", "CRO registration", "Constitution de société", "Guidance RBO", "Tous les frais gouvernementaux inclus"]],
+        ["Formation + Compliance", "1 250€/an", ["Création de société", "Annual Return B1", "Revenue registration", "Support Corporation Tax", "Calendrier de conformité"]],
+        ["Comptabilité mensuelle", "À partir de 249€/mois", ["Bookkeeping mensuel", "Support VAT", "Coordination paie", "Management accounts", "Conseiller dédié"]],
+        ["Fondateur international", "2 950€+", ["Setup non-résident", "Aide bancaire", "Support transfrontalier", "Onboarding Revenue et CRO"]]
+      ]
+    },
 
-  bpo: {
-    title: "UK & Canada Finance BPO",
-    subtitle: "Outsourced bookkeeping, accounts payable, payroll processing and finance operations for UK and Canadian businesses.",
-    servicesTitle: "BPO Services",
-    pricingTitle: "BPO Pricing",
-    address: "31 Brooklawn Wood, Stradbrook Road, Blackrock, Dublin",
-    services: [
-      "Bookkeeping Outsourcing",
-      "Accounts Payable",
-      "Accounts Receivable",
-      "Payroll Processing",
-      "Management Reporting",
-      "Finance Operations"
-    ],
-    pricing: [
-      ["BPO Starter", "From £499/mo", ["Monthly bookkeeping", "Bank reconciliations", "Invoice processing", "Email support"]],
-      ["BPO Growth", "From £1,250/mo", ["Dedicated finance associate", "Payroll support", "Management reporting", "AP/AR support"]],
-      ["Enterprise BPO", "Custom", ["Dedicated offshore team", "Custom workflows", "Weekly reporting", "CFO support"]]
-    ]
+    france: {
+      title: "Expert-Comptable Paris",
+      subtitle: "Comptabilité française, création de société, création d’association et fiscalité pour SASU, SAS, auto-entrepreneurs et dirigeants internationaux.",
+      servicesTitle: "Services France",
+      pricingTitle: "Tarifs France",
+      address: "32 Rue Pradier, Paris 75019",
+      cta: "Prendre rendez-vous",
+      footer: "© 2026 Stratancy. Services d’expert-comptable à Paris.",
+      services: [
+        "Création SASU / SAS",
+        "Création d’Association loi 1901",
+        "Auto-entrepreneur",
+        "TVA",
+        "URSSAF",
+        "DSN & Paie",
+        "Bilan Comptable",
+        "Liasse Fiscale"
+      ],
+      pricing: [
+        ["Auto-entrepreneur", "49€/mois", ["Aide création micro-entreprise", "Support URSSAF", "Aide déclaration chiffre d’affaires", "Conseil fiscal de base"]],
+        ["Création SASU / SAS", "À partir de 390€", ["Accompagnement création société", "Préparation des statuts", "Guidance guichet unique", "Suivi SIREN/SIRET"]],
+        ["Création Association", "À partir de 290€", ["Création association loi 1901", "Guidance déclaration préfecture", "Support statuts", "Accompagnement publication"]],
+        ["Comptabilité SASU / SAS", "À partir de 149€/mois", ["Tenue comptable", "Déclarations TVA", "Bilan annuel", "Liasse fiscale"]],
+        ["Société Croissance", "À partir de 299€/mois", ["Comptabilité complète", "TVA & fiscalité", "Paie salariés", "Tableaux de bord"]]
+      ]
+    },
+
+    uk: {
+      title: "BPO Finance & Comptabilité UK",
+      subtitle: "Externalisation bookkeeping, payroll, VAT support et opérations finance pour UK limited companies et PME britanniques.",
+      servicesTitle: "Services BPO UK",
+      pricingTitle: "Tarifs BPO UK",
+      address: "31 Brooklawn Wood, Stradbrook Road, Blackrock, Dublin",
+      cta: "Réserver un appel BPO",
+      footer: "© 2026 Stratancy. Externalisation finance et comptabilité UK.",
+      services: [
+        "Bookkeeping externalisé",
+        "Support VAT Return",
+        "PAYE Payroll Processing",
+        "Accounts Payable",
+        "Accounts Receivable",
+        "Management Accounts",
+        "Support Companies House",
+        "Support HMRC"
+      ],
+      pricing: [
+        ["UK BPO Starter", "À partir de £499/mois", ["Bookkeeping mensuel", "Rapprochements bancaires", "Traitement factures", "Support VAT"]],
+        ["UK BPO Growth", "À partir de £1,250/mois", ["Finance associate dédié", "Support PAYE payroll", "Support AP/AR", "Management accounts mensuels"]],
+        ["UK Finance Team", "Sur devis", ["Équipe offshore dédiée", "Workflows personnalisés", "Reporting hebdomadaire", "Support niveau CFO"]]
+      ]
+    },
+
+    canada: {
+      title: "BPO Finance & Comptabilité Canada",
+      subtitle: "Externalisation bookkeeping, GST/HST, payroll processing et opérations finance pour entreprises canadiennes.",
+      servicesTitle: "Services BPO Canada",
+      pricingTitle: "Tarifs BPO Canada",
+      address: "31 Brooklawn Wood, Stradbrook Road, Blackrock, Dublin",
+      cta: "Réserver un appel BPO",
+      footer: "© 2026 Stratancy. Externalisation finance et comptabilité Canada.",
+      services: [
+        "Bookkeeping externalisé",
+        "Support GST/HST",
+        "Payroll Processing",
+        "Accounts Payable",
+        "Accounts Receivable",
+        "Reporting mensuel",
+        "Support CRA",
+        "Finance Operations"
+      ],
+      pricing: [
+        ["Canada BPO Starter", "À partir de CAD $699/mois", ["Bookkeeping mensuel", "Rapprochements bancaires", "Traitement factures", "Support GST/HST"]],
+        ["Canada BPO Growth", "À partir de CAD $1,750/mois", ["Finance associate dédié", "Support payroll", "Support AP/AR", "Reporting de gestion mensuel"]],
+        ["Canada Finance Team", "Sur devis", ["Équipe offshore dédiée", "Workflows personnalisés", "Reporting hebdomadaire", "Support niveau controller"]]
+      ]
+    }
   }
 };
 
 function render() {
   const mode = document.getElementById("mode").value;
-  const d = data[mode];
+  const language = document.getElementById("language").value;
+  const d = data[language][mode];
+
+  document.documentElement.lang = language;
 
   document.getElementById("title").innerText = d.title;
   document.getElementById("subtitle").innerText = d.subtitle;
   document.getElementById("servicesTitle").innerText = d.servicesTitle;
   document.getElementById("pricingTitle").innerText = d.pricingTitle;
   document.getElementById("address").innerText = d.address;
+  document.getElementById("cta").innerText = d.cta;
+  document.getElementById("footer").innerText = d.footer;
 
   document.getElementById("services").innerHTML = d.services.map(service => `
     <div class="card">
       <h3>${service}</h3>
-      <p>Specialist local support for ${d.title}.</p>
+      <p>${service}</p>
     </div>
   `).join("");
 
@@ -254,6 +314,8 @@ function render() {
 }
 
 document.getElementById("mode").addEventListener("change", render);
+document.getElementById("language").addEventListener("change", render);
+
 render();
 </script>
 
